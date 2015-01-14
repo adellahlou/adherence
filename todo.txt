@@ -1,0 +1,13 @@
+TO DO: 
+
+
+Android App:
+	1) Figure out bluetooth
+	2) Create initial GUI design
+	3) Skeleton for login activity and database accessing class
+
+Hardware Development: 
+	1) All you Jose!
+
+
+	
