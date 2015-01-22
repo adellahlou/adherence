@@ -4,5 +4,10 @@
     <string name="app_name">Adherence</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
+    <string name="btn_bt_on">Turn Bt On</string>
+    <string name="btn_toggle_color">Toggle Color</string>
+    <string name="btn_save_img">Save Image</string>
+    <string name="bt_pair_title">Has the device been paired before?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

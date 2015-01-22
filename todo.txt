@@ -3,11 +3,24 @@ TO DO:
 
 Android App:
 	1) Figure out bluetooth
+		- I noticed in the documentation that API 18 (4.3) supports BLE specifically versus classic BlueTooth. Though it's too new to make our minimum SDK, down the road we should look at it.
 	2) Create initial GUI design
 	3) Skeleton for login activity and database accessing class
+		- Ask Ilya about database
+	4) Think about the timing of how a person takes the pill and how phone would get it
+		- The phone cannot always have Bluetooth on, so we need Bluetooth Admin to turn on Bluetooth when we want
+		- Has to run as a service, since we cannot rely on the patient
 
+
+	5) Transmitting Bluetooth images https://developer.bluetooth.org/TechnologyOverview/Pages/BIP.aspx
+	https://kamrana.wordpress.com/2012/05/12/sending-images-over-bluetooth-in-android/
+	http://stackoverflow.com/questions/14080142/how-to-receive-byte-array-from-bluetooth-and-save-byte-array-to-sd-card-as-an-im
+
+
+
+	6) What is a Smart and Smart Ready device?
+	http://www.bluetooth.com/Pages/Fast-Facts.aspx
 Hardware Development: 
 	1) All you Jose!
 
 
-	
