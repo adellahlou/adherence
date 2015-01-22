@@ -9,7 +9,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/android-support-v4" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/laird_library_ver.0.18.1.1" />
           </set>
         </option>
       </GradleProjectSettings>

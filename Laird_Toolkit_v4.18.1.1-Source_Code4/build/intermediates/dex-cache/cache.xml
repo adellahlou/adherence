@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/Adel/GitHub/college/adherence/Laird_Toolkit_v4.18.1.1-Source_Code4/app/libs/laird_library_ver.0.18.1.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8a2a992d00a3cb74164d91dc62babd66cb638d5f">
+        <dex dex="/Users/Adel/GitHub/college/adherence/Laird_Toolkit_v4.18.1.1-Source_Code4/app/build/intermediates/pre-dexed/debug/laird_library_ver.0.18.1.1-a55b162818ab7f7ea0e7cc1d6e00709c22f14c39.jar" />
+    </item>
+    <item
+        jar="/Users/Adel/GitHub/college/adherence/Laird_Toolkit_v4.18.1.1-Source_Code4/app/libs/commons-lang3-3.3.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="63de8a49b95145202032b00e964efb2b6c61ac79">
+        <dex dex="/Users/Adel/GitHub/college/adherence/Laird_Toolkit_v4.18.1.1-Source_Code4/app/build/intermediates/pre-dexed/debug/commons-lang3-3.3.1-28bc97c728d25f97c96f4cbf7686f76622ecf508.jar" />
+    </item>
+    <item
+        jar="/Users/Adel/Desktop/adt-bundle-mac-x86_64-20140702/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="/Users/Adel/GitHub/college/adherence/Laird_Toolkit_v4.18.1.1-Source_Code4/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-49798d2739d769aee66d3ed2bcc6041842936328.jar" />
+    </item>
+    <item
+        jar="/Users/Adel/GitHub/college/adherence/Laird_Toolkit_v4.18.1.1-Source_Code4/app/libs/achartengine-1.1.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250">
+        <dex dex="/Users/Adel/GitHub/college/adherence/Laird_Toolkit_v4.18.1.1-Source_Code4/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-3b04e06303aa56b1b4a67b0f7f0c9cc75983548b.jar" />
+    </item>
+
+</items>

@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':laird_library_ver.0.18.1.1', ':android-support-v4'

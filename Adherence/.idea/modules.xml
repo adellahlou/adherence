@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Adherence.iml" filepath="$PROJECT_DIR$/Adherence.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-support-v4/android-support-v4.iml" filepath="$PROJECT_DIR$/android-support-v4/android-support-v4.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/laird_library_ver.0.18.1.1/laird_library_ver.0.18.1.1.iml" filepath="$PROJECT_DIR$/laird_library_ver.0.18.1.1/laird_library_ver.0.18.1.1.iml" />
     </modules>
   </component>
 </project>
