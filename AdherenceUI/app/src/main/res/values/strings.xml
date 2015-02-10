@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AdherenceUI</string>
+
+    <string name="action_logout">Logout</string>
+    <string name="action_instructions">Instructions</string>
+    <string name="action_about">About Adherence</string>
+    <string name="action_legal">Legal info</string>
+
+    <string name="datepicker_start">Start Date</string>
+    <string name="datepicker_end">End Date</string>
+
+    <string name="button_missed_on">Hide Missed</string>
+    <string name="button_ontime_on">Hide On Time</string>
+    <string name="button_late_on">Hide Late</string>
+    <string name="button_missed_off">Show Missed</string>
+    <string name="button_ontime_off">Show On Time</string>
+    <string name="button_late_off">Show Late</string>
+
+    <string name="pref_notifications_category">Notification Settings</string>
+
+    <string name="pref_pill_notif">Notification Frequency</string>
+    <string name="pref_pill_notif_summ">Verbose or Urgent Only Notifications</string>
+
+    <string name="pref_caretaker_notif">Notify Caretaker</string>
+    <string name="pref_caretaker_notif_summ">Enable Caretaker Notifications</string>
+
+
+    <string name="pref_power_category">Battery Usage Settings</string>
+    <string name="pref_power_saver">Power Save Mode</string>
+    <string name="pref_power_saver_summ">Enable Power Saving. Disables some features</string>
+
+    <string name="pref_sync">Sync Option</string>
+    <string name="pref_sync_summ">Sync over Wi-Fi only</string>
+
+</resources>

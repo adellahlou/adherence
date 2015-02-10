@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+    android:title="@string/pref_notifications_category"
+    android:key="pref_notifications_category">
+        <CheckBoxPreference
+        android:key="pref_pill_notif"
+        android:title="@string/pref_pill_notif"
+        android:summary="@string/pref_pill_notif_summ"
+        android:defaultValue="true" />
+        <CheckBoxPreference
+        android:key="pref_caretaker_notif"
+        android:title="@string/pref_caretaker_notif"
+        android:summary="@string/pref_caretaker_notif_summ"
+        android:defaultValue="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_power_category"
+        android:key="pref_power_category">
+        <CheckBoxPreference
+            android:key="pref_power_saver"
+            android:title="@string/pref_power_saver"
+            android:summary="@string/pref_power_saver_summ"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="pref_sync"
+            android:title="@string/pref_sync"
+            android:summary="@string/pref_sync_summ"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+</PreferenceScreen>

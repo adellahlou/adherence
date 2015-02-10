@@ -1,0 +1,93 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.adel.adherenceui.ScheduleFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@color/lightLayoutBackground"
+>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp"
+        >
+
+        <EditText
+            android:id="@+id/datepicker_start"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:padding="6dp"
+            android:background="@color/white"
+            android:hint="@string/datepicker_start"
+            android:onClick="showDatePicker"
+            android:layout_gravity="left"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/datepicker_end"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:padding="6dp"
+            android:background="@color/white"
+            android:hint="@string/datepicker_end"
+            android:onClick="showDatePicker"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            />
+
+        </LinearLayout>
+
+       <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp">
+
+            <ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:textOn="@string/button_missed_on"
+                android:textOff="@string/button_missed_off"
+                android:layout_gravity="left"
+                android:layout_weight="1"/>
+
+            <ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOn="@string/button_late_on"
+                android:textOff="@string/button_late_off"
+                android:checked="true"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+
+            <ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOn="@string/button_ontime_on"
+                android:textOff="@string/button_ontime_off"
+                android:checked="true"
+                android:layout_gravity="right"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+    <CalendarView
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="fill_horizontal"
+        android:showWeekNumber="false"
+        android:background="@color/white"
+        android:shownWeekCount="5"
+        />
+
+
+</LinearLayout>
