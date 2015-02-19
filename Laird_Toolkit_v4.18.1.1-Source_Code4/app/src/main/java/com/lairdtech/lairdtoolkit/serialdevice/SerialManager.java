@@ -12,8 +12,12 @@ import android.app.Activity;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
+import android.os.Environment;
 
 import com.lairdtech.bt.ble.vsp.FifoAndVspManager;
+
+import java.nio.charset.Charset;
+import java.util.Random;
 
 public class SerialManager extends FifoAndVspManager{
     private SerialManagerUiCallback mSerialManagerUiCallback;
@@ -121,8 +125,28 @@ public class SerialManager extends FifoAndVspManager{
 	public void onVspReceiveData(BluetoothGatt gatt,
 			BluetoothGattCharacteristic ch) {
 		super.onVspReceiveData(gatt, ch);
-		
-		mRxBuffer.write(ch.getStringValue(0));
+
+        final Charset UTF8_CHARSET = Charset.forName("UTF-8");
+        byte[] biteMe = ch.getValue();
+        /*String myFile = generateFileName();
+        FileOutputStream out;
+        File externalDir = Environment.getExternalStorageDirectory();
+        try {
+            out = new FileOutputStream(externalDir);
+            out.write(biteMe);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }*/
+        //String ch_string = null;
+        //try {
+        //    ch_string = new String(biteMe, "US-ASCII");
+        //} catch (UnsupportedEncodingException e) {
+        //    e.printStackTrace();
+        //}
+        mRxBuffer.write(ch.getStringValue(0));
+
+		//mRxBuffer.write(ch.getStringValue(0));
         
         while(mRxBuffer.read(mRxDest) != 0){
         	/*
@@ -130,7 +154,7 @@ public class SerialManager extends FifoAndVspManager{
         	 */
         	String rxBufferDataRead = mRxDest.toString();
         	mRxDest.delete(0, mRxDest.length());
-        	mSerialManagerUiCallback.onUiReceiveData(rxBufferDataRead);
+        	mSerialManagerUiCallback.onUiReceiveData(rxBufferDataRead, biteMe);
         }
 	}
 	
@@ -157,4 +181,15 @@ public class SerialManager extends FifoAndVspManager{
 		super.onUploaded();
 		mSerialManagerUiCallback.onUiUploaded();
     }
+
+
+
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
 }

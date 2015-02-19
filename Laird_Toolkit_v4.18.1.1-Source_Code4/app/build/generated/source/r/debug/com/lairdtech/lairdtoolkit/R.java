@@ -19,15 +19,11 @@ public final class R {
         public static final int border=0x7f020001;
         public static final int ic_launcher=0x7f020002;
         public static final int icon_batch=0x7f020003;
-        public static final int icon_blood_pressure=0x7f020004;
-        public static final int icon_heart_rate=0x7f020005;
-        public static final int icon_ota=0x7f020006;
-        public static final int icon_proximity=0x7f020007;
-        public static final int icon_serial=0x7f020008;
-        public static final int icon_temp=0x7f020009;
-        public static final int laird_background=0x7f02000a;
-        public static final int logo_laird=0x7f02000b;
-        public static final int progressbar_horizontal=0x7f02000c;
+        public static final int icon_ota=0x7f020004;
+        public static final int icon_serial=0x7f020005;
+        public static final int laird_background=0x7f020006;
+        public static final int logo_laird=0x7f020007;
+        public static final int progressbar_horizontal=0x7f020008;
     }
     public static final class id {
         public static final int action_about=0x7f080061;
@@ -138,17 +134,18 @@ public final class R {
         public static final int activity_blood_pressure=0x7f030003;
         public static final int activity_heart_rate=0x7f030004;
         public static final int activity_home=0x7f030005;
-        public static final int activity_ota=0x7f030006;
-        public static final int activity_proximity=0x7f030007;
-        public static final int activity_serial=0x7f030008;
-        public static final int activity_serial_preferences=0x7f030009;
-        public static final int activity_thermometer=0x7f03000a;
-        public static final int common_connected_device_details=0x7f03000b;
-        public static final int item_apps_holder=0x7f03000c;
-        public static final int item_scan_button=0x7f03000d;
-        public static final int item_scanned=0x7f03000e;
-        public static final int listview_scanned_devices=0x7f03000f;
-        public static final int progress_indicator=0x7f030010;
+        public static final int activity_main=0x7f030006;
+        public static final int activity_ota=0x7f030007;
+        public static final int activity_proximity=0x7f030008;
+        public static final int activity_serial=0x7f030009;
+        public static final int activity_serial_preferences=0x7f03000a;
+        public static final int activity_thermometer=0x7f03000b;
+        public static final int common_connected_device_details=0x7f03000c;
+        public static final int item_apps_holder=0x7f03000d;
+        public static final int item_scan_button=0x7f03000e;
+        public static final int item_scanned=0x7f03000f;
+        public static final int listview_scanned_devices=0x7f030010;
+        public static final int progress_indicator=0x7f030011;
     }
     public static final class menu {
         public static final int batch_menu=0x7f070000;

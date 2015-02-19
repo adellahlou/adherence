@@ -1,5 +1,5 @@
-/Users/Adel/GitHub/college/adherence/Laird_Toolkit_v4.18.1.1-Source_Code4/app/build/intermediates/classes/debug
-/Users/Adel/GitHub/college/adherence/Laird_Toolkit_v4.18.1.1-Source_Code4/app/build/intermediates/pre-dexed/debug/laird_library_ver.0.18.1.1-a55b162818ab7f7ea0e7cc1d6e00709c22f14c39.jar
-/Users/Adel/GitHub/college/adherence/Laird_Toolkit_v4.18.1.1-Source_Code4/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-3b04e06303aa56b1b4a67b0f7f0c9cc75983548b.jar
-/Users/Adel/GitHub/college/adherence/Laird_Toolkit_v4.18.1.1-Source_Code4/app/build/intermediates/pre-dexed/debug/commons-lang3-3.3.1-28bc97c728d25f97c96f4cbf7686f76622ecf508.jar
-/Users/Adel/GitHub/college/adherence/Laird_Toolkit_v4.18.1.1-Source_Code4/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-49798d2739d769aee66d3ed2bcc6041842936328.jar
+C:\Users\Jacob\AndroidStudioProjects\adherence\Laird_Toolkit_v4.18.1.1-Source_Code4\app\build\intermediates\classes\debug
+C:\Users\Jacob\AndroidStudioProjects\adherence\Laird_Toolkit_v4.18.1.1-Source_Code4\app\build\intermediates\pre-dexed\debug\laird_library_ver.0.18.1.1-235f98e7c692b445b2a26cbf2727e82230cba95d.jar
+C:\Users\Jacob\AndroidStudioProjects\adherence\Laird_Toolkit_v4.18.1.1-Source_Code4\app\build\intermediates\pre-dexed\debug\achartengine-1.1.0-43046af9dcc48a5ff56e3b009e33abf31022a718.jar
+C:\Users\Jacob\AndroidStudioProjects\adherence\Laird_Toolkit_v4.18.1.1-Source_Code4\app\build\intermediates\pre-dexed\debug\commons-lang3-3.3.1-801d77c33ade9b0bb7a2af3b7b4d59aaafb3ae67.jar
+C:\Users\Jacob\AndroidStudioProjects\adherence\Laird_Toolkit_v4.18.1.1-Source_Code4\app\build\intermediates\pre-dexed\debug\support-v4-19.1.0-61778f8db0445602091a155d552f43c9b0428241.jar

@@ -60,6 +60,6 @@ public interface SerialManagerUiCallback extends BaseActivityUiCallback, FifoAnd
      * @param dataReceived the value that was send from the remote device
      */
 	public void onUiReceiveData(
-			final String dataReceived);
+			final String dataReceived, final byte[] bytes);
 	
 }

@@ -70,4 +70,4 @@ This heading must NOT be removed from the file.
 	    android:paddingLeft="5dp"
 	    android:text="@string/non_applicable" />
 	
-</RelativeLayout><!-- From: file:/Users/Adel/GitHub/college/adherence/Laird_Toolkit_v4.18.1.1-Source_Code4/app/src/main/res/layout/common_connected_device_details.xml -->
+</RelativeLayout><!-- From: file:/C:/Users/Jacob/AndroidStudioProjects/adherence/Laird_Toolkit_v4.18.1.1-Source_Code4/app/src/main/res/layout/common_connected_device_details.xml -->

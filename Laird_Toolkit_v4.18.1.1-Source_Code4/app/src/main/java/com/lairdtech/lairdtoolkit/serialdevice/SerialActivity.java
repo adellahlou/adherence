@@ -24,6 +24,10 @@ import android.widget.TextView;
 import com.lairdtech.lairdtoolkit.R;
 import com.lairdtech.lairdtoolkit.bases.BaseActivity;
 
+import java.io.FileOutputStream;
+import java.util.Random;
+import java.util.Vector;
+
 public class SerialActivity extends BaseActivity implements SerialManagerUiCallback{
 
 	private Button mBtnSend;
@@ -34,6 +38,7 @@ public class SerialActivity extends BaseActivity implements SerialManagerUiCallb
 	private TextView mValueTxCounterTv;
 
 	private SerialManager mSerialManager;
+    private Vector<Byte> myData;
 
 	private boolean isPrefClearTextAfterSending = false;
 
@@ -257,17 +262,47 @@ public class SerialActivity extends BaseActivity implements SerialManagerUiCallb
 	}
 
 	@Override
-	public void onUiReceiveData(final String dataReceived) {
+	public void onUiReceiveData(final String dataReceived, final byte[] bytes) {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				mValueVspOutTv.append(dataReceived);
+				mValueVspOutTv.append("Received a byte stream of length" + bytes.length + "\n");
 				mValueRxCounterTv.setText("" + mSerialManager.getVSPDevice().getRxCounter());
-				mScrollViewVspOut.smoothScrollTo(0, mValueVspOutTv.getBottom());	
+				mScrollViewVspOut.smoothScrollTo(0, mValueVspOutTv.getBottom());
+
+                for (int i = 0; i < bytes.length; i++)
+                {
+                    myData.add(new Byte(bytes[i]));
+                }
+
+                if (myData.size() >= 256)
+                {
+                    byte[] toSave = new byte[myData.size()];
+                    for (int i = 0; i < myData.size(); i++)
+                    {
+                        toSave[i] = myData.get(i);
+                    }
+
+                    FileOutputStream save;
+
+                    try {
+                        save = openFileOutput(generateFileName(), Context.MODE_PRIVATE);
+                        save.write(toSave);
+                        save.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
 			}
 		});
 	}
-
+    public String generateFileName()
+    {
+        Random rand = new Random();
+        int myInt = rand.nextInt(10000000);
+        return new Integer(myInt).toString();
+    }
 	@Override
 	public void onUiUploaded() {
 		mBtnSend.setEnabled(true);
