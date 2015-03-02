@@ -1,5 +1,7 @@
 package com.adel.adherenceui;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -13,12 +15,18 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+
 
 public class ScheduleFragment extends Fragment {
 
 
     //private OnFragmentInteractionListener mListener;
     public final String calendarTag = "1ADHERENCE_EVENTS";
+
+    public ArrayList<String> eventNames = new ArrayList<String>();
+    public ArrayList<Long> eventTimes = new ArrayList<Long>();
+    public ArrayList<String> eventTimeZones = new ArrayList<String>();
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -107,38 +115,89 @@ public class ScheduleFragment extends Fragment {
 
 
     public void getAdherenceCalendar() {
+
+        boolean calendarExists = false;
+        long calID = 0;
+        int accountCounter = 0;
         Cursor cur = null;
         ContentResolver cr = getActivity().getContentResolver();
-        Uri uri = CalendarContract.Calendars.CONTENT_URI;
+        Uri uri_calendars = CalendarContract.Calendars.CONTENT_URI;
+        Uri uri_events = CalendarContract.Events.CONTENT_URI;
+
+        //Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
+        String myAccountType = "com.google";
+        Account[] accounts = AccountManager.get(getActivity()).getAccountsByType(myAccountType);
+
 
         String selection = "((" + CalendarContract.Calendars.ACCOUNT_NAME + " = ?) AND ("
-                                + CalendarContract.Calendars.ACCOUNT_TYPE + " = ?) AND ("
-                                + CalendarContract.Calendars.OWNER_ACCOUNT + " = ?))";
+                                + CalendarContract.Calendars.ACCOUNT_TYPE + " = ?))";
 
-        String[] selectionArgs = new String[] {"adel.lahlou@gmail.com",
-                                                "com.google",
-                                                "adel.lahlou@gmail.com"};
+        String[] selectionArgs = new String[] {accounts[0].name,
+                                                myAccountType};
 
-        cur = cr.query(uri, EVENT_PROJECTION, selection, selectionArgs, null);
+
+        //cur = cr.query(uri, null, null, null, null);
+        cur = cr.query(uri_calendars, null, selection, selectionArgs, null);
+        //cur = cr.query(uri, EVENT_PROJECTION, selection, selectionArgs, null);
         //cur.moveToFirst();
 
-        //while(cur.moveToNext()) {
-            long calID = 0;
+        while(cur.moveToNext()) {
             String displayName = null;
             String accountName = null;
             String ownerName = null;
 
-            calID = cur.getLong(PROJECTION_ID_INDEX);
-            displayName = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
-            accountName = cur.getString(PROJECTION_ACCOUNT_NAME_INDEX);
-            ownerName = cur.getString(PROJECTION_OWNER_ACCOUNT_INDEX);
+            String nameTest = cur.getString(cur.getColumnIndex(CalendarContract.Calendars.NAME));
+            calID = cur.getLong(cur.getColumnIndex(CalendarContract.Calendars._ID));
+            String test3 = cur.getString(cur.getColumnIndex(CalendarContract.Calendars.ACCOUNT_NAME));
+            String test4 = cur.getString(cur.getColumnIndex(CalendarContract.Calendars.ACCOUNT_TYPE));
+            String test5 = cur.getString(cur.getColumnIndex(CalendarContract.Calendars.OWNER_ACCOUNT));
+
+            if (nameTest.equals(calendarTag))
+            {
+                calendarExists = true;
+                break;
+            }
 
             Log.d(MainActivity.APP_TAG, calID + " " + displayName + " " + accountName + " " + ownerName);
             //Toast.makeText(getActivity(), , Toast.LENGTH_SHORT).show();
-       // }
+        }
+        cur.close();
+
+
+        //CONTINUE FROM HERE - NEED DO DO ANOTHER QUERY TO GET ALL EVENTS FROM THE ADHERENCE CALENDAR
+        if (calendarExists)
+        {
+            Cursor eventCursor = null;
+
+            String eventSelection = CalendarContract.Events.CALENDAR_ID + " = ?";
+
+            String[] eventSelectionArgs = new String[] {new String(Long.toString(calID))};
+
+            eventCursor = cr.query(uri_events, null, eventSelection, eventSelectionArgs, null);
+
+            while (eventCursor.moveToNext())
+            {
+                eventNames.add(eventCursor.getString(eventCursor.getColumnIndex(CalendarContract.Events.TITLE)));
+                eventTimes.add(new Long(eventCursor.getLong(eventCursor.getColumnIndex(CalendarContract.Events.DTSTART))));
+                eventTimeZones.add(eventCursor.getString(eventCursor.getColumnIndex(CalendarContract.Events.EVENT_TIMEZONE)));
+            }
+        }
+
+        else
+        {
+            //INSERT CODE TO TELL THE USER THEY NEED TO CREATE A CALENDAR BECAUSE IT DOESN'T EXIST
+
+            createAdherenceCalendar();
+        }
+
+
+
     }
 
-
+    public void createAdherenceCalendar()
+    {
+        new GoogleCalendarTask().execute();
+    }
 
 
 }

@@ -17,4 +17,10 @@
           package="android.support.v4.preferencefragment">
     <uses-sdk android:minSdkVersion="7"/>
     <application></application>
+
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 </manifest>

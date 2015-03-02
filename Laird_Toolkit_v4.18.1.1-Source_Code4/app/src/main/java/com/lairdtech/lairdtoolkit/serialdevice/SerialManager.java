@@ -17,7 +17,6 @@ import android.os.Environment;
 import com.lairdtech.bt.ble.vsp.FifoAndVspManager;
 
 import java.nio.charset.Charset;
-import java.util.Random;
 
 public class SerialManager extends FifoAndVspManager{
     private SerialManagerUiCallback mSerialManagerUiCallback;

@@ -38,7 +38,7 @@ public class SerialActivity extends BaseActivity implements SerialManagerUiCallb
 	private TextView mValueTxCounterTv;
 
 	private SerialManager mSerialManager;
-    private Vector<Byte> myData;
+    private Vector<Byte> myData = new Vector<Byte>();
 
 	private boolean isPrefClearTextAfterSending = false;
 
@@ -266,7 +266,7 @@ public class SerialActivity extends BaseActivity implements SerialManagerUiCallb
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				mValueVspOutTv.append("Received a byte stream of length" + bytes.length + "\n");
+				mValueVspOutTv.append("Received a byte stream of length " + bytes.length + "\n");
 				mValueRxCounterTv.setText("" + mSerialManager.getVSPDevice().getRxCounter());
 				mScrollViewVspOut.smoothScrollTo(0, mValueVspOutTv.getBottom());
 
