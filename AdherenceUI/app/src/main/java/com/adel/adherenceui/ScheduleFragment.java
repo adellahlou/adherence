@@ -167,19 +167,23 @@ public class ScheduleFragment extends Fragment {
         //CONTINUE FROM HERE - NEED DO DO ANOTHER QUERY TO GET ALL EVENTS FROM THE ADHERENCE CALENDAR
         if (calendarExists)
         {
+            ArrayList<Long> calendarIDs = new ArrayList<Long>();
             Cursor eventCursor = null;
 
             String eventSelection = CalendarContract.Events.CALENDAR_ID + " = ?";
 
             String[] eventSelectionArgs = new String[] {new String(Long.toString(calID))};
 
+            //eventCursor = cr.query(uri_events, null, null, null, null);
             eventCursor = cr.query(uri_events, null, eventSelection, eventSelectionArgs, null);
 
             while (eventCursor.moveToNext())
             {
+                calendarIDs.add( new Long(eventCursor.getLong(eventCursor.getColumnIndex(CalendarContract.Events.CALENDAR_ID))));
                 eventNames.add(eventCursor.getString(eventCursor.getColumnIndex(CalendarContract.Events.TITLE)));
                 eventTimes.add(new Long(eventCursor.getLong(eventCursor.getColumnIndex(CalendarContract.Events.DTSTART))));
                 eventTimeZones.add(eventCursor.getString(eventCursor.getColumnIndex(CalendarContract.Events.EVENT_TIMEZONE)));
+
             }
         }
 
@@ -196,7 +200,7 @@ public class ScheduleFragment extends Fragment {
 
     public void createAdherenceCalendar()
     {
-        new GoogleCalendarTask().execute();
+        new GoogleCalendarTask(getActivity()).execute();
     }
 
 
