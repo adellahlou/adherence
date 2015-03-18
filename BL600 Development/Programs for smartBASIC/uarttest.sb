@@ -1,0 +1,16 @@
+dim rc
+function handleruartrx()
+	print "Data has been received\n"
+endfunc 1
+
+function btn0pressed()
+endfunc 0
+
+rc = gpiobindevent(0,16,1)
+print "Press button 0 to exit application\n"
+
+onevent EVUARTRX call handleruartrx
+onevent EVGPIOCHAN0 call btn0pressed
+
+waitevent
+print "Exitting...\n"

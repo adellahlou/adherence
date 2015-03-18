@@ -1,0 +1,7 @@
+dim rc
+rc = erasefilesystem(1)
+
+if rc != 0 then
+	print "Did not erase the file system"
+endif
+

@@ -1,0 +1,16 @@
+dim a
+for a=1 to 2
+	print "Hello"
+next
+
+print "\n"
+
+for a=2 downto 0
+	print "Hello"
+next
+
+print "\n"
+
+for a=1 to 4 step 3
+	print "Hello"
+next

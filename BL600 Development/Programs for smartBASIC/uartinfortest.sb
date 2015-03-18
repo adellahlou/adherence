@@ -1,0 +1,20 @@
+dim rc, start
+
+
+UartClose()
+
+if uartinfo(0) == 0 then
+	print "\n The Uart port is close\n"
+else
+	print "\nThe Uart port is not closed\n"
+endif
+
+print "\nReceive ring buffer capacity:           ";uartinfo(1)
+print "\nTransmit ring buffer capacity:          ";uartinfo(2)
+print "\nNo. bytes waiting in transmit buffer:           ";uartinfo(5)
+
+start= gettickcount()
+do
+until uartinfo(5) == 0
+
+print "\n\nTook ";getticksince(start);" milliseconds for transmit buffer to be emptied\n"

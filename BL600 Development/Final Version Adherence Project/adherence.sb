@@ -1,0 +1,159 @@
+'//******************************************************************************
+'// Library Import
+'//******************************************************************************
+#include "ble.sblib"
+
+dim rc
+dim h
+dim rd$, wr$, testrd$
+dim conHndl
+dim totalwritten : totalwritten = 0
+'************************Bluetooth Related Functions and Routines*************
+sub CloseConnections()
+    dim rc
+    rc=BleDisconnect(conHndl)
+	conHndl = 0
+    rc=BleAdvertStop()
+    BleVspClose()
+endsub
+sub OnStartup()
+    DIM rc, hndl, tx$, scRpt$, addr$, adRpt$ 
+	CloseConnections()
+    print "\n";Blevspinfo(2)
+    rc=BleVSpOpen(128,128,0,hndl)
+	print "\n"; rc
+    rc=BleScanRptInit(scRpt$)
+	print "\n"; rc	
+	rc = BleAdvRptAddUuid128(scRpt$,hndl)
+	print "\n"; rc
+    rc=BleAdvRptsCommit(adRpt$,scRpt$)
+	print "\n"; rc
+    rc=BleAdvertStart(0,addr$,20,300000,0)
+	print "\n"; rc
+endsub
+
+
+
+function HndlrBleMsg(byval nMsgId, byval nCtx) 
+    dim addr$
+	dim intrvl, sprvto,slat
+	conHndl=nCtx
+	print "\nHandlerBLeMSG is ";nMsgID
+    if nMsgID==1 then
+        print "\nDisconnected from client"
+		CloseConnections()
+		addr$ = ""
+		rc=BleAdvertStart(0,addr$,20,300000,0)
+		print "\n"; rc
+		waitevent
+		timerstart(0,2000,0)
+        exitfunc 1
+    endif
+	
+	if nMsgID == 0 then
+		print "\nConnected to device"
+		rc = bleauthenticate(nCtx)
+		exitfunc 0
+	endif
+	
+endfunc 1
+
+function HandlerBridge() as integer
+  // transfer data between VSP and UART ring buffers
+  BleVspUartBridge()
+endfunc 1
+
+function handleemptytx() as integer
+endfunc 0
+
+'************************END Bluetooth Related Functions and Routines*********
+
+'*************************SPI Related Functions and Routines******************
+//subroutine used for waiting for the write in progress bit to be low
+//This results in a finished transaction
+sub waitwrite()
+	do
+		gpiowrite(13,0)
+		wr$="\05\00" : rd$="" : rc = spireadwrite(wr$, rd$)
+		//print "\nAt waitwrite the rd is  ";strhexize$(rd$)
+		gpiowrite(13,1)
+		
+	until ((strgetchr(rd$,1)&1) ==0)
+endsub
+
+//Issue the WRE command based on the spec
+sub enablewrite()
+	gpiowrite(13,0)
+	wr$="\06" : rd$="" : rc=spiwrite(wr$)
+	gpiowrite(13,1)
+endsub
+
+function readimage()
+	dim cmdID$
+	dim i
+	dim done: done =0
+	cmdID$ = "\0B\00\00\00\00"
+	gpiowrite(13,0)
+	rc = spiwrite(cmdID$)
+	for i = 0 to 1
+		rd$ =""
+		rc = spiread(rd$,128)
+		rc = BleVSpWrite(rd$)
+		print rd$
+		waitevent
+		next
+		//set CS High to deactivate in order to finish transaction
+	gpiowrite(13,1)
+endfunc 1
+
+'*************************End of SPI Related Functions and Routines************
+
+'**************************Beginning of button handlers**********************
+function btnpressed()
+endfunc 1
+
+function btn1pressed()
+	print "\nButton 1 was pressed \nExiting..."
+endfunc 0
+
+function sendData()
+	dim lrc
+	lrc=readimage()
+endfunc 1
+'*************************End of button handlers******************************
+
+'********************MAIN ****************************************************
+
+//configure chip select line using si013 as an output
+rc= gpiosetfunc(13,2,1)
+//ensure cs is not enabled
+gpiowrite(13,1)
+//configure buttons for different actions
+rc = gpiosetfunc(17,1,2)
+rc = gpiobindevent(1,17,1)
+
+
+//onevent evgpiochan0 call btnpressed
+onevent 	evtmr0 call sendData
+onevent 	evgpiochan1 call btn1pressed
+onevent  evvsprx            call HandlerBridge
+onevent  evuartrx           call HandlerBridge
+onevent  evvsptxempty       call handleemptytx
+onevent  evblemsg           call HndlrBleMsg
+
+//open SPI with 8Mhz frequency (max) and in Mode 0
+rc = spiopen(0,8000000, 0, h) : print "\nOpen with rc  ";rc
+print "\nWaiting for connection"
+print "\nButton 0 = read 76800 bytes at mem location 0x000000"
+//print "\nButton 1 = perform CE command and write several bytes starting in mem location 0x040"
+print "\nButton 1 = Exit\n"
+OnStartup()
+waitevent
+timerstart(0,2000,0)
+waitevent
+CloseConnections()
+spiclose(h)
+
+'*****************END OF MAIN**************************************************
+
+

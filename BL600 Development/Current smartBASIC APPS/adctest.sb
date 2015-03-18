@@ -1,0 +1,48 @@
+dim rc
+
+function functionHandler()
+	dim signal1, signal2, signal3
+	dim total : total = 0
+	dim i : i = 0
+	dim average
+	while (i < 100)
+		signal1 = gpioread(1)
+		total = total + signal1
+		i = i + 1
+	endwhile
+	average = total/100
+	print "\n************************************************************"
+	print "\nAverage is ";average
+	
+	
+	
+	
+	//signal1 = gpioread(1)
+	//print "\n************************************************************"
+	//print "\n\nAnalog result with 2//3rd scaling 0x";INTEGER.h'signal1;" in hexadecimal"
+	//print " in decimal ";signal1
+	
+	print "\n************************************************************"
+endfunc 1
+
+function exitPressed()
+	print "\nExiting..."
+endfunc 0
+
+//Setup for Analog
+rc = gpiosetfunc(1,3,0x13)
+print rc
+//Setup buttons
+rc = gpiosetfunc(16,1,2)
+rc = gpiosetfunc(17,1,2)
+rc = gpiobindevent(0,16,1)
+rc = gpiobindevent(1,17,1)
+
+
+onevent evgpiochan0 call functionHandler
+onevent evgpiochan1 call exitPressed
+
+print "\nPress Button 1 to read ADC"
+print "\nPress Button 0 to exit"
+
+waitevent

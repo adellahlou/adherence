@@ -1,0 +1,46 @@
+//subroutine used to encode CMD plus address plus dummy to be sent
+//to flash memory
+sub getCmdID(BYVAL saddress as INTEGER, BYREF cmdID$ as STRING)
+	dim a,b,c,d,f
+	dim cmdResult$
+	//dim s1$,s2$,s3$,s4$
+	//dim ss1$,ss2$,ss3$,ss4$
+	cmdResult$= "\0B\11\22\33\44"
+	
+	print "\nThis is right ";strgetchr(cmdResult$,0)
+	print "\nThis is right ";strgetchr(cmdResult$,1)
+	print "\nThis is right ";strgetchr(cmdResult$,2)
+	print "\nThis is right ";strgetchr(cmdResult$,3)
+	b = saddress &  0x000000FF
+	c = saddress & 0x0000FF00
+	c = c >> 8
+	d = saddress & 0x00FF0000
+	d = d >>16
+	//dummy var set to 0
+	f = 0x0
+	
+	//sprint #s1$,"\";INTEGER.h'd
+	//sprint #s2$,"\";INTEGER.h'c
+	//sprint #s3$,"\";INTEGER.h'b
+	//sprint #s4$,"\";INTEGER.h'f
+	
+	//strshiftleft(s1$,6)
+	//strshiftleft(s2$,6)
+	//strshiftleft(s3$,6)
+	//strshiftleft(s4$,6)
+
+	rc = strsetchr(cmdResult$,d,1)
+	rc = strsetchr(cmdResult$,c,2)
+	rc = strsetchr(cmdResult$,b,3)
+	rc = strsetchr(cmdResult$,f,4)
+	
+	
+	print "\nThis is right ";strgetchr(cmdResult$,0)
+	print "\nThis is right ";strgetchr(cmdResult$,1)
+	print "\nThis is right ";strgetchr(cmdResult$,2)
+	print "\nThis is right ";strgetchr(cmdResult$,3)
+	//cmdResult$ = "\0B" + s1$ + s2$ + s3$ + s4$
+	//sprint #cmdResult$,"\0B\";ss1$;ss2$;ss3$;ss4$
+	cmdID$ = cmdResult$
+	//cmdID$ = strhexize$(cmdResult$)
+endsub

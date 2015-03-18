@@ -1,0 +1,26 @@
+dim rc, str$, i, done, d
+
+str$ = "                                                                                                                                                                                                                                                                                                                                                                             Hello World"
+
+function handluarttxempty()
+	print "Tx buffer is now empty\n"
+endfunc 0
+
+rc = uartwrite(str$)
+
+while done == 0
+	if rc < strlen(str$) then
+		print rc;" bytes written"
+		print "\nStill have ";strlen(str$)-rc;" bytes to write\n"
+		print "\nShifting 'str$' by ";rc
+		strshiftleft(str$,rc)
+		done = 0
+	else
+		print "\nString 'str$' written successfully\n"
+		done =1
+	endif
+endwhile
+
+onevent evuarttxempty call handluarttxempty
+
+waitevent

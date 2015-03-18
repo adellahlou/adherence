@@ -1,0 +1,7 @@
+dim i$ as string
+dim a$ as string
+
+a$ = "Laird"
+i$ = a$ + " Rocks!"
+
+print i$

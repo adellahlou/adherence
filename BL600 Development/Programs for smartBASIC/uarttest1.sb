@@ -1,0 +1,29 @@
+dim rc
+
+function handleruartrx()
+	print "Data has been received\n"
+endfunc 1
+
+function btn0pressed()
+	UartClose()
+endfunc 0
+
+rc = gpiobindevent(0,16,1)
+
+onevent evuartrx call handleruartrx
+onevent evgpiochan0 call btn0pressed
+
+uartclose()
+
+rc = uartopen(9600,0,0,"CN81H")
+
+if rc!= 0 then
+	print "\nFailed to open UART interface wieth error ";integer.h'rc
+else
+	print "\nOpen Successful"
+endif	
+print "\nPress button 0 to exit"
+
+waitevent
+
+print"Exiting...\n"

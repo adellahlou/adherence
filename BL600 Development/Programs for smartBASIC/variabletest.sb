@@ -1,0 +1,11 @@
+dim temp1 as integer
+dim temp2
+dim temp3$ as string
+dim temp4$
+dim temp5$ as integer
+dim temp6 as string
+
+dim a1,a2,a3$,a4
+
+print "We will now print each variable on screen \n"
+print temp1, temp2, temp3$, temp4$, temp5$, temp6, a1, a2, a3$, a4 

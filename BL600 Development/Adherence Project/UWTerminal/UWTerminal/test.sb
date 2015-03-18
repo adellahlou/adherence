@@ -1,0 +1,33 @@
+dim i, s$, test$
+dim HexString$
+
+//Function brought from BL620 code
+function RemoveZeros(data$) as string
+	dim i, Done, TmpStr$ : i = 0 : Done = 0
+	while (i < strlen(data$))
+		tmpstr$ = mid$(data$, i, 1)
+		if (strcmp(tmpstr$, "0") != 0) then
+			//other number found - cut string to this lenth and mark as finished
+			tmpstr$ = right$(data$,strlen(data$)-i)
+			i = strlen(data$)
+			Done = 1
+		endif
+		i = i + 1
+	endwhile
+	if (Done == 0) then
+		tmpstr$ = "0"
+	endif
+endfunc tmpstr$ 
+
+i = 0x123456
+sprint #s$,integer.h'i
+
+test$ = RemoveZeros(s$)
+//This is not what we want
+print "\nString after removeZeros ";test$
+print "\nString after dehexize "; strdehexize$(test$); " and hexize ";strhexize$(test$)
+
+//I want to be able to do this kind of output
+HexString$ = "\01\02\03\04"
+print "\nThis is the one I want ";HexString$; " and pass this to SpiWrite"
+print "\nAnd this is the hexize of this one ";strhexize$(HexString$)

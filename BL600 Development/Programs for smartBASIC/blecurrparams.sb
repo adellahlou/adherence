@@ -1,0 +1,40 @@
+dim rc , connhandle, addr$
+
+
+function handlerblemsg(byval nmsgid as integer, byval nCtx as integer) as integer
+ dim intrv1,sprvto, slat
+ select nmsgid
+	case 0
+		print" --- Hrs Connect : ";nCtx
+		rc = blegetcurconnparms(nCtx,intrv1,sprvto,slat)
+		if rc ==0 then
+			print "\nConn Interval ";intrv1
+			print "\nConn Supervision Timeout "; sprvto
+			print "\nConn Slave Latency "; slat
+		endif
+	
+	case 1
+		print "\n-- Hrs Disconnect : ";nCtx
+	
+	case 14
+		rc = blegetcurconnparms(nCtx, intrv1, sprvto, slat)
+		if rc == 0 then
+			print "\nConn Interval ";intrv1
+			print "\nConn Supervision Timeout "; sprvto
+			print "\nConn Slave Latency "; slat
+		endif
+	
+	case 15
+		print "\n??? Conn Parm Negotiation Failed"
+	
+	case else
+		print "\nUnknown BLE msg"
+ endselect
+endfunc 1
+
+onevent evblemsg call handlerblemsg
+addr$ =""
+rc = bleadvertstart(0, addr$, 25, 60000, 0)
+rc = blesetcurconnparms(connhandle, 50000, 75000, 4000000, 19)
+
+waitevent

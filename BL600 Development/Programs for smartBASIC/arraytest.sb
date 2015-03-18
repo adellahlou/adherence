@@ -1,0 +1,16 @@
+dim nCmds as integer
+dim strCmds(20) as string
+
+strCmds[0] = "\rATS0 = 1\r"
+strCmds[1] = "ATS512 = 4\r"
+strCmds[2] = "ATS501 = 1\r"
+strCmds[3] = "ATS502 = 1\r"
+strCmds[4] = "ATS503 = 1\r"
+strCmds[5] = "ATS504 = 1\r"
+strCmds[6] = "AT&W\r"
+nCmds=6
+
+dim i as integer
+for i=0 to nCmds step 1
+	print strCmds[i]
+next

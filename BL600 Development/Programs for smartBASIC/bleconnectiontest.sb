@@ -1,0 +1,49 @@
+dim addr$ : addr$= ""
+dim rc
+
+
+function handlrMsg(BYVAL nMsgId as integer, BYVAL nCtx as integer)
+	select nMsgId
+		case 0
+			print "\nBLE Connection ";nCtx
+			rc = bleauthenticate(nCtx)
+		case 1
+			print "\nDisconnected";nCtx;"\n"
+		case 18
+			print "\nConnection ";nCtx;" is ow encrypted\n"
+		case 16
+			print "\nConnected to a bonded master\n"
+		case 17
+			print "\nA new pairing has replaced the old key\n"
+		case else
+			print "Uknown BLE message\n"
+	endselect
+endfunc 16
+
+function handlrblradvtimout()
+	print "\nAvert stopped via timeout\n"
+	print "\nExiting..."
+endfunc 0
+
+function btn0pressed()
+	print "\nExiting...\n"
+endfunc 0
+
+print gpiosetfunc(16,1,0x12)
+print gpiobindevent(0,16,0)
+
+onevent evblemsg call handlrMsg
+onevent evble_adv_timeout call handlrblradvtimout
+onevent evgpiochan0 call btn0pressed
+
+
+if bleadvertstart(0, addr$, 100, 10000,0) == 0 then
+	print "Advert started\n"
+	print "Press button 0 to exit\n"
+else
+	print "\nAdvertisement not successful\n"
+endif
+
+waitevent
+
+			

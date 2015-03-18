@@ -1,0 +1,10 @@
+dim rc
+dim addr$ : addr$ = ""
+
+rc = bleadvertstart(0, addr$, 30, 60000, 0)
+
+if rc == 0 then
+	print "\nSuccessful Advertisement Start"
+else
+	print "\nUnsuccessful Advertisement"
+endif

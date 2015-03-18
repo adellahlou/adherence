@@ -1,0 +1,30 @@
+dim rc
+dim s_tick, ms_elapsed
+dim i
+i = 0
+function HandlerTimer1()
+	i = !i
+	gpiowrite(18,i)
+	gpiowrite(19,i)
+endfunc 1
+function HandlerTimer0()
+	ms_elapsed = getticksince(s_tick)
+	print "The timer stopped at ";ms_elapsed;" ms"
+endfunc 1
+
+print "\nStarting timer test"
+print "\nWill use a non-recurring timer for 2 hours (7,200,000 ms) recurring for 12 times (24 hours) and then check the tick"
+
+//timerstart(0, 7200000, 12)
+rc = gpiosetfunc(18,2,4)
+rc = gpiosetfunc(19,2,4)
+gpiowrite(18,i)
+gpiowrite(19,i)
+timerstart(1,1000,98475)
+timerstart(0,7200000,12)
+s_tick = gettickcount()
+onevent evtmr0 call HandlerTimer0
+onevent evtmr1 call HandlerTimer1
+
+waitevent
+print "\nEnd of timer test"

@@ -1,0 +1,12 @@
+dim cB, nItems,rc, s$
+
+rc = CircBufItems(cB, nItems)
+
+print integer.h'rc
+print "\n";
+
+print integer.h'CircBufItems(cB, nItems)
+
+sprint #s$, integer.h'CircBufItems(cB, nItems)
+StrShiftLeft(s$, 4)
+print s$

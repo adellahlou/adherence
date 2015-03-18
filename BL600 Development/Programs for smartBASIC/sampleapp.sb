@@ -1,0 +1,46 @@
+dim rc
+
+function button0release()
+gpiowrite(18,0)
+print "Button 0 has been released\n"
+print "LED 0 should now go out\n\n"
+endfunc 1
+
+function button0press()
+gpiowrite(18,1)
+print "Button 0 has been pressed \n"
+print "LED 0 will light while the button is pressed"
+endfunc 1
+
+function button1release()
+gpiowrite(19,0)
+print "Button 1 has been released\n"
+print "LED 1 should now go out \n\n"
+endfunc 1
+
+function button1press()
+gpiowrite(19,1)
+print "Button 1 has been pressed \n"
+print "LED 1 will light while the button is pressed \n"
+endfunc 1
+
+rc = gpiosetfunc(16,1,2)
+rc = gpiosetfunc(17,1,2)
+
+rc = gpiosetfunc(18,2,4)
+rc = gpiosetfunc(19,2,4)
+
+rc = gpiobindevent(0,16,0)
+rc = gpiobindevent(1,16,1)
+rc = gpiobindevent(2,17,0)
+rc = gpiobindevent(3,17,1)
+
+onevent evgpiochan0 call button0release
+onevent evgpiochan1 call button0press
+onevent evgpiochan2 call button1release
+onevent evgpiochan3 call button1press
+
+print "Ready to begin button and LED test \n"
+print "Please press button 0 or button 1 \n\n"
+
+waitevent

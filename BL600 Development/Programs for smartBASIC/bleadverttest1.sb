@@ -1,0 +1,21 @@
+dim rc, advrtrprt$, scnrpt$, discoverableMode, advappearance, maxdevname
+dim addr$
+addr$ = ""
+advrtrprt$ =""
+scnrpt$ = ""
+discoverableMode = 0
+advappearance = 1
+maxdevname = 10
+
+rc = bleadvrptinit(advrtrprt$, discoverableMode, advappearance, maxdevname)
+rc = blescanrptinit(scnrpt$)
+rc = bleadvrptscommit(advrtrprt$, scnrpt$)
+rc = bleadvertstart(0, addr$, 25, 600000, 0)
+
+if rc == 0 then
+	print "\nSuccessful Advertisement Start"
+else
+	print "\nUnsuccessful Advertisement"
+endif
+print "\nScan report is "; scnrpt$
+print "\nAdvrt Report is ";advrtrprt$

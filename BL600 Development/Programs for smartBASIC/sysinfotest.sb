@@ -1,0 +1,14 @@
+print "Value of sysinfo(0) ";integer.h'sysinfo(0)
+print "\n"
+
+print "Value of sysinfo(3) ";integer.h'sysinfo(3)
+print "\n"
+
+print "Value of sysinfo(33) ";integer.h'sysinfo(33)
+print "\n"
+
+print "Value of sysinfo(601) ";integer.h'sysinfo(601)
+print "\n"
+
+print "Value of sysinfo(602) ";integer.h'sysinfo(602)
+print "\n"
