@@ -2,12 +2,19 @@ package com.adel.adherenceui;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +22,12 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 
 public class ScheduleFragment extends Fragment {
@@ -53,6 +65,11 @@ public class ScheduleFragment extends Fragment {
         startDate = (EditText) myFragmentView.findViewById(R.id.datepicker_start);
         endDate = (EditText) myFragmentView.findViewById(R.id.datepicker_end);
         mCalendarView= (CalendarView) myFragmentView.findViewById(R.id.calendar);
+
+        getAdherenceCalendar();
+
+        //USED FOR TESTING THE NOTIFICATION CREATION
+        createNotificationAlarm("Adderall", 15, 30);
 
         return myFragmentView;
     }
@@ -184,7 +201,30 @@ public class ScheduleFragment extends Fragment {
                 eventTimes.add(new Long(eventCursor.getLong(eventCursor.getColumnIndex(CalendarContract.Events.DTSTART))));
                 eventTimeZones.add(eventCursor.getString(eventCursor.getColumnIndex(CalendarContract.Events.EVENT_TIMEZONE)));
 
+
             }
+
+            Calendar cal = Calendar.getInstance();
+            //change this for multiple time zones at a later date
+            cal.setTimeZone(TimeZone.getTimeZone("CST"));
+
+            for (int i = 0; i < calendarIDs.size(); i++)
+            {
+                cal.setTimeInMillis(eventTimes.get(i));
+                Date date = cal.getTime();
+
+                String dateString = date.toString();
+
+                createNotificationAlarm(eventNames.get(i), Integer.parseInt(dateString.substring(11, 13)), Integer.parseInt(dateString.substring(14, 16)));
+
+                /*TimeZone destTz = TimeZone.getTimeZone("GMT");
+                // Best practice is to set Locale in case of messing up the date display
+                SimpleDateFormat destFormat = new SimpleDateFormat("HH:mm MM/dd/yyyy", Locale.US);
+                destFormat.setTimeZone(destTz);
+                // Then we do the conversion to convert the date you provided in milliseconds to the GMT timezone
+                String convertResult = destFormat.parse(date);*/
+            }
+
         }
 
         else
@@ -195,6 +235,29 @@ public class ScheduleFragment extends Fragment {
         }
 
 
+
+    }
+
+    public void createNotificationAlarm(String medicineName, int hour, int minute)
+    {
+        String title = "New Adherence Notification";
+        String subject = "Adherence: " + medicineName;
+        String body = "Reminder that it is time to take your dose of " + medicineName + ".";
+
+        Intent intent = new Intent(getActivity(), NotificationReceiver.class);
+        intent.putExtra(NotificationReceiver.TITLE_KEY, title);
+        intent.putExtra(NotificationReceiver.SUBJECT_KEY, subject);
+        intent.putExtra(NotificationReceiver.BODY_KEY, body);
+
+        AlarmManager alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+
+        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
 
     }
 

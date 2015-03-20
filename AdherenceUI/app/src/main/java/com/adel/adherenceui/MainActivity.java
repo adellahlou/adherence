@@ -28,6 +28,7 @@ public class MainActivity extends ActionBarActivity implements android.support.v
 
     AppSectionsPagerAdapter mAppSectionsPagerAdapter;
     ViewPager mViewPager;
+    ScheduleFragment myScheduleFragment = new ScheduleFragment();
 
     public static String APP_TAG = "ADHERENCE_TEST";
 
@@ -62,6 +63,9 @@ public class MainActivity extends ActionBarActivity implements android.support.v
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         PreferenceManager.setDefaultValues( this, R.xml.preferences, false);
+
+        //myScheduleFragment.getAdherenceCalendar();
+
     }
 
 

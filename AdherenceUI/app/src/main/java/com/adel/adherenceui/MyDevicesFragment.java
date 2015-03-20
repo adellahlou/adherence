@@ -1,13 +1,16 @@
 package com.adel.adherenceui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +42,8 @@ public class MyDevicesFragment extends Fragment {
     private static final String TAG_EXPECTEDNEXTREFILL = "expectedNextRefill";
     private static final String TAG_LASTCONNECTED = "lastConnected" ;
 
+    public String[] dummyDevicesData = {"Adderall", "Ritalin", "Acetaminophen", "Ibuprofen", "Penicillin"};
+
     public MyDevicesFragment() {
     }
 
@@ -53,6 +58,35 @@ public class MyDevicesFragment extends Fragment {
 
 
         View rootView = inflater.inflate(R.layout.fragment_mydevices, container, false);
+
+        ArrayAdapter<String> devicesAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, dummyDevicesData);
+
+        ListView myListView = (ListView) rootView.findViewById(R.id.devicesList);
+        myListView.setAdapter(devicesAdapter);
+
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                // selected item
+                String product = ((TextView) view).getText().toString();
+
+                // Launching new Activity on selecting single List Item
+                Intent intent = new Intent(getActivity(), DeviceDetailActivity.class);
+                // sending data to new activity
+                intent.putExtra(Intent.EXTRA_TEXT, product);
+                startActivity(intent);
+
+            }
+        });
+
+        /*myListView.setOnItemClickListener((adapterView, view, position, l) -> {
+            String deviceName = devicesAdapter.getItem(position);
+            Intent intent = new Intent(getActivity(), DeviceDetailActivity.class)
+                    .putExtra(Intent.EXTRA_TEXT, deviceName);
+            startActivity(intent);
+        });*/
+
         return rootView;
     }
 
